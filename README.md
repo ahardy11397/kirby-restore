@@ -27,6 +27,9 @@ and one-way-syncs to `mydrive:data/Kirby/`:
 | `~/osiris` | `data/Kirby/osiris/` |
 | `~/audio-mashup` | `data/Kirby/audio-mashup/` |
 | `~/bin` | `data/Kirby/bin/` |
+| `~/Documents` | `data/Kirby/Documents/` |
+| `~/data` (OpenViking KB: collections, vectordb, skills) | `data/Kirby/openviking-data/` |
+| `~/.openviking` (OpenViking config) | `data/Kirby/dot-openviking/` |
 | `~/.config` | `data/Kirby/dot-config/` |
 | `~/.hermes` | `data/Kirby/dot-hermes/` |
 | `~/.ssh` | `data/Kirby/dot-ssh/` |
@@ -34,6 +37,9 @@ and one-way-syncs to `mydrive:data/Kirby/`:
 | `/mnt/ssd/projects` | `data/Kirby/ssd-projects/` |
 
 Build junk (`node_modules`, `dist`, `build`, venvs, `__pycache__`) is excluded.
+The OpenViking server venv (`~/.openviking-env`, ~1.3G) is not synced — its
+package list is captured monthly (`state/openviking-venv-pip.txt`) and the
+bootstrap rebuilds it.
 
 ### 2. System state — archived monthly to Drive
 

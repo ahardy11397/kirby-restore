@@ -69,6 +69,18 @@ rclone sync "mydrive:data/Kirby/dot-hermes/"   ~/.hermes/       --progress || tr
 rclone sync "mydrive:data/Kirby/dot-ssh/"      ~/.ssh/          --progress && chmod 700 ~/.ssh && chmod 600 ~/.ssh/* 2>/dev/null
 rclone sync "mydrive:data/Kirby/ssd-projects/" /mnt/ssd/projects/ --progress || echo "NOTE: mount /mnt/ssd first (fstab in state archive)"
 
+# documents + OpenViking
+rclone sync "mydrive:data/Kirby/Documents/"        ~/Documents/       --progress
+rclone sync "mydrive:data/Kirby/openviking-data/"  ~/data/            --progress
+rclone sync "mydrive:data/Kirby/dot-openviking/"   ~/.openviking/     --progress
+# OpenViking server venv (re-creatable): recreate from captured package list
+if [[ -f ~/restore-work/unpacked/openviking-venv-pip.txt ]]; then
+  python3 -m venv ~/.openviking-env
+  ~/.openviking-env/bin/pip install -q -r ~/restore-work/unpacked/openviking-venv-pip.txt \
+    && echo "OpenViking venv rebuilt" \
+    || echo "WARN: venv rebuild failed — install openviking-server manually"
+fi
+
 # ------------------------------------------------------------------------------
 step "4/5 Crontab + systemd units"
 if [[ -f ~/restore-work/unpacked/cron/crontabs/ahard ]]; then
