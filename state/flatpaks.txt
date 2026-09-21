@@ -1,0 +1,4 @@
+Gittyup	com.github.Murmele.Gittyup	v2.0.0	stable	system
+OBS Studio	com.obsproject.Studio	32.2.2	stable	system
+SysD Manager	io.github.plrigaux.sysd-manager	2.22.2	stable	system
+Splash	xyz.splashmapper.Splash	0.12.4	stable	system
