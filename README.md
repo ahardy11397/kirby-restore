@@ -65,10 +65,11 @@ auto-pruned.
 Drive reachability, and that the timers are enabled.
 Log: `/var/log/backup-heartbeat.log`.
 
-> Nothing fires under cron — all three jobs are systemd timers
-> (`/etc/systemd/system/*.timer`, all `Persistent=true`, so a missed run
-> fires at next boot). Your own user crontab (drive-watchdog,
-> steam-watchdog) is untouched.
+> Nothing fires under cron anywhere — v2 jobs are system systemd timers
+> (`/etc/systemd/system/*.timer`), and the drive-watchdog is a user systemd
+> timer (`~/.config/systemd/user/`). All `Persistent=true`, so a missed run
+> fires at next boot. (steam-watchdog retired 2026-09-22 — its container no
+> longer exists; script kept in `~/bin`.)
 
 ### What is deliberately NOT backed up
 
