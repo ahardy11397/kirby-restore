@@ -18,7 +18,7 @@ Packages installed ──► configs pulled ──► data synced
 
 ### 1. Personal data — synced daily to Drive
 
-`~/bin/data-sync.sh` runs every day at 04:00 (cron: `/etc/cron.d/kirby-backups`)
+`~/bin/data-sync.sh` runs every day at 04:00 (systemd timer: `data-sync.timer`)
 and one-way-syncs to `mydrive:data/Kirby/`:
 
 | Local | Drive |
@@ -43,7 +43,8 @@ bootstrap rebuilds it.
 
 ### 2. System state — archived monthly to Drive
 
-`~/bin/system-state-capture.sh` runs on the 1st at 05:00 and uploads a small
+`~/bin/system-state-capture.sh` runs on the 1st at 05:00
+(systemd timer: `system-state-capture.timer`) and uploads a small
 (~61 MB) archive to `mydrive:backups/Kirby/monthly/YYYY-MM/`:
 
 - package lists — `apt-mark showmanual`, full dpkg list, pipx, npm -g, flatpak
@@ -60,8 +61,14 @@ auto-pruned.
 ### 3. Health check
 
 `~/bin/backup-heartbeat.sh` runs daily at 09:00
-(cron: `/etc/cron.d/backup-heartbeat`), verifies the last sync/archive, Drive
-reachability, and cron entries. Log: `/var/log/backup-heartbeat.log`.
+(systemd timer: `backup-heartbeat.timer`), verifies the last sync/archive,
+Drive reachability, and that the timers are enabled.
+Log: `/var/log/backup-heartbeat.log`.
+
+> Nothing fires under cron — all three jobs are systemd timers
+> (`/etc/systemd/system/*.timer`, all `Persistent=true`, so a missed run
+> fires at next boot). Your own user crontab (drive-watchdog,
+> steam-watchdog) is untouched.
 
 ### What is deliberately NOT backed up
 
